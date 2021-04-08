@@ -1,0 +1,25 @@
+<div class="highlight"><pre><span></span><span class="c1">#!/usr/bin/io</span>
+
+<span class="n">myObj</span> <span class="o">:=</span> <span class="nb">Object</span> <span class="k">clone</span> <span class="k">do</span><span class="o">(</span>
+	<span class="n">name</span> <span class="o">::=</span> <span class="no">nil</span>
+	<span class="n">city</span> <span class="o">::=</span> <span class="no">nil</span>
+	<span class="n">addr</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span><span class="nb">list</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">city</span><span class="o">)</span> <span class="n">join</span> <span class="o">(</span><span class="s">&quot;\n&quot;</span><span class="o">))</span>
+<span class="o">)</span>
+<span class="n">myObj</span> <span class="n">val</span> <span class="o">::=</span> <span class="no">nil</span>
+<span class="n">myObj</span> <span class="n">sayHello</span> <span class="o">::=</span> <span class="no">nil</span>
+
+<span class="n">myObj</span> <span class="n">slotNames</span> <span class="n">print</span>
+
+<span class="n">myObj</span> <span class="n">name</span> <span class="o">:=</span> <span class="s">&quot;Sam&quot;</span>
+<span class="n">myObj</span> <span class="n">name</span> <span class="n">print</span>
+<span class="n">myObj</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;John&quot;</span>
+<span class="n">myObj</span> <span class="n">name</span> <span class="n">print</span>
+
+<span class="n">myObj</span> <span class="n">setSayHello</span><span class="o">(</span><span class="s">&quot;hello&quot;</span> <span class="n">print</span><span class="o">)</span>
+<span class="n">myObj</span> <span class="n">sayHello</span>
+<span class="c1"># myObj setAddr(&quot;hello&quot; print) # raises no respond exception</span>
+
+<span class="n">myObj</span> <span class="n">addr</span> <span class="n">print</span>
+<span class="n">myObj</span> <span class="n">proto</span> <span class="n">type</span> <span class="n">print</span>
+<span class="n">myObj</span> <span class="n">addr</span> <span class="n">type</span> <span class="n">print</span>
+</pre></div>
