@@ -5,6 +5,7 @@ from pygments.formatters import HtmlFormatter
 import os
 import datetime
 import random
+import re
 
 
 def get_time_string():
@@ -14,7 +15,8 @@ def get_time_string():
 
 def print_inlcude(dir_fname):
     result = dict()
-    tstring = get_time_string() + hex(random.randrange(16**8))[2:]
+#    tstring = get_time_string() + hex(random.randrange(16**8))[2:]
+    tstring = "io_crach_week_" + re.sub("[/\.]", "_", dir_fname)
     result['div'] = '<div id = "includedContent_' + tstring + '"></div>'
 
     with open("template.js") as jstemp:
