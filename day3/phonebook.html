@@ -1,0 +1,19 @@
+<div class="highlight"><pre><span></span><span class="n">OperatorTable</span> <span class="n">addAssignOperator</span><span class="o">(</span><span class="s">&quot;:&quot;</span><span class="o">,</span> <span class="s">&quot;atPutNumber&quot;</span><span class="o">)</span>
+<span class="n">curlyBrackets</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span>
+	<span class="n">r</span> <span class="o">:=</span> <span class="nb">Map</span> <span class="k">clone</span>
+	<span class="n">call</span> <span class="n">message</span> <span class="n">arguments</span> <span class="n">foreach</span><span class="o">(</span><span class="n">arg</span><span class="o">,</span>
+		<span class="n">r</span> <span class="n">doMessage</span><span class="o">(</span><span class="n">arg</span><span class="o">)</span>
+	<span class="o">)</span>
+	<span class="n">r</span>
+<span class="o">)</span>
+<span class="nb">Map</span> <span class="n">atPutNumber</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span>
+	<span class="n">self</span> <span class="n">atPut</span><span class="o">(</span>
+		<span class="n">call</span> <span class="n">evalArgAt</span><span class="o">(</span><span class="mf">0</span><span class="o">)</span> <span class="n">asMutable</span> <span class="n">removePrefix</span><span class="o">(</span><span class="s">&quot;\&quot;&quot;</span><span class="o">)</span> <span class="n">removeSuffix</span><span class="o">(</span><span class="s">&quot;\&quot;&quot;</span><span class="o">),</span>
+		<span class="n">call</span> <span class="n">evalArgAt</span><span class="o">(</span><span class="mf">1</span><span class="o">))</span>
+<span class="o">)</span>
+<span class="n">s</span> <span class="o">:=</span> <span class="nb">File</span> <span class="n">with</span><span class="o">(</span><span class="s">&quot;phonebook.json&quot;</span><span class="o">)</span> <span class="n">openForReading</span> <span class="n">contents</span>
+
+<span class="n">phoneNumbers</span> <span class="o">:=</span> <span class="k">doString</span><span class="o">(</span><span class="n">s</span><span class="o">)</span>
+<span class="n">phoneNumbers</span> <span class="n">keys</span> <span class="n">println</span>
+<span class="n">phoneNumbers</span> <span class="n">values</span> <span class="n">println</span>
+</pre></div>

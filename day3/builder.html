@@ -1,0 +1,65 @@
+<div class="highlight"><pre><span></span><span class="n">Builder</span> <span class="o">:=</span> <span class="nb">Object</span> <span class="k">clone</span> <span class="k">do</span><span class="o">(</span>
+    <span class="n">indent</span> <span class="o">:=</span> <span class="nb">Sequence</span> <span class="k">clone</span>
+    <span class="c1">// To make a mutable sequence use Sequence clone, rather than specifying an empty string, which would be immutable.</span>
+    <span class="n">unit_indent</span> <span class="o">:=</span> <span class="s">&quot;    &quot;</span>
+<span class="o">)</span>
+
+<span class="n">OperatorTable</span> <span class="n">addAssignOperator</span><span class="o">(</span><span class="s">&quot;:&quot;</span><span class="o">,</span> <span class="s">&quot;atPutNumber&quot;</span><span class="o">)</span>
+<span class="n">curlyBrackets</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span>
+    <span class="n">r</span> <span class="o">:=</span> <span class="nb">Map</span> <span class="k">clone</span>
+    <span class="n">call</span> <span class="n">message</span> <span class="n">arguments</span> <span class="n">foreach</span><span class="o">(</span><span class="n">arg</span><span class="o">,</span>
+        <span class="n">r</span> <span class="n">doMessage</span><span class="o">(</span><span class="n">arg</span><span class="o">)</span>
+    <span class="o">)</span>
+    <span class="n">r</span>
+<span class="o">)</span>
+<span class="nb">Map</span> <span class="n">atPutNumber</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span>
+    <span class="n">self</span> <span class="n">atPut</span><span class="o">(</span>
+        <span class="n">call</span> <span class="n">evalArgAt</span><span class="o">(</span><span class="mf">0</span><span class="o">)</span> <span class="n">asMutable</span> <span class="n">removePrefix</span><span class="o">(</span><span class="s">&quot;\&quot;&quot;</span><span class="o">)</span> <span class="n">removeSuffix</span><span class="o">(</span><span class="s">&quot;\&quot;&quot;</span><span class="o">),</span>
+        <span class="n">call</span> <span class="n">evalArgAt</span><span class="o">(</span><span class="mf">1</span><span class="o">))</span>
+<span class="o">)</span>
+
+
+<span class="n">Builder</span> <span class="n">forward</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span>
+    <span class="c1">// Must use an external sequence to store result, otherwise cannot know when to move `&gt;` after the arguments.</span>
+    <span class="n">XML_seq</span> <span class="n">appendSeq</span><span class="o">(</span><span class="n">indent</span><span class="o">,</span> <span class="s">&quot;&lt;&quot;</span><span class="o">,</span> <span class="n">call</span> <span class="n">message</span> <span class="n">name</span><span class="o">,</span> <span class="s">&quot;&gt;\n&quot;</span><span class="o">)</span>
+    <span class="n">Builder</span> <span class="n">indent</span> <span class="o">=</span> <span class="n">indent</span> <span class="n">appendSeq</span><span class="o">(</span><span class="n">unit_indent</span><span class="o">)</span>
+
+    <span class="n">is_first</span> <span class="o">:=</span> <span class="no">true</span>
+    <span class="n">call</span> <span class="n">message</span> <span class="n">arguments</span> <span class="n">foreach</span><span class="o">(</span>
+        <span class="n">arg</span><span class="o">,</span>
+        <span class="n">content</span> <span class="o">:=</span> <span class="n">self</span> <span class="n">doMessage</span><span class="o">(</span><span class="n">arg</span><span class="o">)</span>
+
+        <span class="c1">//convert XML artributes</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">is_first</span> <span class="n">and</span> <span class="n">content</span> <span class="n">type</span> <span class="o">==</span> <span class="s">&quot;Map&quot;</span><span class="o">,</span>
+            <span class="n">seq</span> <span class="o">:=</span> <span class="nb">Sequence</span> <span class="k">clone</span>
+            <span class="n">content</span> <span class="n">keys</span> <span class="n">foreach</span><span class="o">(</span><span class="n">key</span><span class="o">,</span>
+                <span class="n">seq</span> <span class="n">appendSeq</span><span class="o">(</span><span class="s">&quot; &quot;</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="s">&quot;=\&quot;&quot;</span><span class="o">,</span> <span class="n">content</span> <span class="n">at</span><span class="o">(</span><span class="n">key</span><span class="o">),</span> <span class="s">&quot;\&quot;&quot;</span><span class="o">)</span>
+            <span class="o">)</span>
+            <span class="n">XML_seq</span> <span class="n">removeLast</span> <span class="n">removeLast</span>
+            <span class="n">XML_seq</span> <span class="n">appendSeq</span><span class="o">(</span><span class="n">seq</span><span class="o">,</span> <span class="s">&quot;&gt;\n&quot;</span><span class="o">)</span>
+        <span class="o">)</span>
+
+        <span class="c1">// convert XML elements</span>
+        <span class="k">if</span><span class="o">(</span>
+            <span class="n">content</span> <span class="n">type</span> <span class="o">==</span> <span class="s">&quot;Sequence&quot;</span><span class="o">,</span>
+            <span class="n">seq</span> <span class="o">:=</span> <span class="nb">Sequence</span> <span class="k">clone</span> <span class="n">appendSeq</span><span class="o">(</span><span class="n">indent</span><span class="o">)</span>
+            <span class="n">seq</span> <span class="n">appendSeq</span><span class="o">(</span><span class="n">content</span><span class="o">)</span>
+            <span class="n">XML_seq</span> <span class="n">appendSeq</span><span class="o">(</span><span class="n">seq</span><span class="o">,</span> <span class="s">&quot;\n&quot;</span><span class="o">)</span>
+        <span class="o">)</span>
+        <span class="n">is_first</span> <span class="o">=</span> <span class="no">false</span>
+    <span class="o">)</span>
+
+    <span class="n">Builder</span> <span class="n">indent</span> <span class="o">:=</span> <span class="n">indent</span> <span class="n">exSlice</span><span class="o">(</span><span class="mf">0</span><span class="o">,</span> <span class="n">indent</span> <span class="n">size</span> <span class="o">-</span> <span class="mf">4</span><span class="o">)</span>
+    <span class="n">XML_seq</span> <span class="n">appendSeq</span><span class="o">(</span><span class="n">indent</span><span class="o">,</span> <span class="s">&quot;&lt;/&quot;</span><span class="o">,</span> <span class="n">call</span> <span class="n">message</span> <span class="n">name</span><span class="o">,</span> <span class="s">&quot;&gt;\n&quot;</span><span class="o">)</span>
+<span class="o">)</span>
+
+<span class="n">s</span> <span class="o">:=</span> <span class="nb">File</span> <span class="n">with</span><span class="o">(</span><span class="s">&quot;ul.LispML&quot;</span><span class="o">)</span> <span class="n">openForReading</span> <span class="n">contents</span>
+<span class="n">s</span> <span class="n">println</span>
+<span class="n">XML_seq</span> <span class="o">:=</span> <span class="nb">Sequence</span> <span class="k">clone</span>
+<span class="n">Builder</span> <span class="k">doString</span><span class="o">(</span><span class="n">s</span><span class="o">)</span> <span class="n">println</span>
+<span class="n">writeln</span>
+<span class="n">s</span> <span class="o">:=</span> <span class="nb">File</span> <span class="n">with</span><span class="o">(</span><span class="s">&quot;book.LispML&quot;</span><span class="o">)</span> <span class="n">openForReading</span> <span class="n">contents</span>
+<span class="n">s</span> <span class="n">println</span>
+<span class="n">XML_seq</span> <span class="o">:=</span> <span class="nb">Sequence</span> <span class="k">clone</span>
+<span class="n">Builder</span> <span class="k">doString</span><span class="o">(</span><span class="n">s</span><span class="o">)</span> <span class="n">println</span>
+</pre></div>

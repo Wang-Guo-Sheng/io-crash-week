@@ -1,0 +1,12 @@
+<div class="highlight"><pre><span></span><span class="n">curlyBrackets</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span>
+    <span class="n">r</span> <span class="o">:=</span> <span class="nb">List</span> <span class="k">clone</span>
+    <span class="n">call</span> <span class="n">message</span> <span class="n">arguments</span> <span class="n">foreach</span><span class="o">(</span><span class="n">arg</span><span class="o">,</span>
+        <span class="n">r</span> <span class="n">push</span><span class="o">(</span><span class="n">doMessage</span><span class="o">(</span><span class="n">arg</span><span class="o">))</span>
+    <span class="o">)</span>
+    <span class="n">r</span>
+<span class="o">)</span>
+
+<span class="n">listString</span> <span class="o">:=</span> <span class="s">&quot;{1,{2,3},\&quot;four\&quot;}&quot;</span>
+<span class="n">readList</span> <span class="o">:=</span> <span class="k">doString</span><span class="o">(</span><span class="n">listString</span><span class="o">)</span>
+<span class="n">readList</span> <span class="n">println</span>
+</pre></div>

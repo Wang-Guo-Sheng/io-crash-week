@@ -1,0 +1,22 @@
+<div class="highlight"><pre><span></span><span class="n">vizzini</span> <span class="o">:=</span> <span class="nb">Object</span> <span class="k">clone</span>
+<span class="n">vizzini</span> <span class="n">talk</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span>
+    <span class="s">&quot;Fezzik, are there rocks ahead?&quot;</span> <span class="n">println</span>
+    <span class="n">yield</span>
+    <span class="s">&quot;No more rhymes now, I mean it.&quot;</span> <span class="n">println</span>
+    <span class="n">yield</span>
+<span class="o">)</span>
+
+<span class="n">fezzik</span> <span class="o">:=</span> <span class="nb">Object</span> <span class="k">clone</span>
+
+<span class="n">fezzik</span> <span class="n">rhyme</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span>
+    <span class="n">yield</span>
+    <span class="s">&quot;If there are, we&#39;ll all be dead.&quot;</span> <span class="n">println</span>
+    <span class="n">yield</span>
+    <span class="s">&quot;Anybody want a peanut?&quot;</span> <span class="n">println</span>
+<span class="o">)</span>
+
+<span class="n">vizzini</span> <span class="o">@@</span><span class="n">talk</span>
+<span class="n">fezzik</span> <span class="o">@@</span><span class="n">rhyme</span>
+
+<span class="nb">Coroutine</span> <span class="n">currentCoroutine</span> <span class="n">pause</span>
+</pre></div>
