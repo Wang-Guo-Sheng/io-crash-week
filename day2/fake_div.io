@@ -1,12 +1,12 @@
 // Redefine division operator to return 0 for 0 denomination
 
-OperatorTable addOperator("div", 2)
-
 (1 / 2) println
 
-# tmp := method(a, b, a / b)
-# tmp(1, 2) println
-0 div := method(den, 0)
-Number div := method(den, if(den == 0, 0, (call target) / den))
+OperatorTable addOperator("div", 2)
+// This would not work unless input line by line in terminal
+// https://iolanguage.org/guide/guide.html#Syntax-Operators
+// Note that this change will not effect the source file in which the OperatorTable is modified as the full file is parsed before it is evaluated.
 
-(0 div 2) println
+Number div := method(den, call target / den)
+message(1 div 2) println
+1 div 2 println

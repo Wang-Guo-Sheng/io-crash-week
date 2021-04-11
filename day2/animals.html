@@ -1,0 +1,18 @@
+<div class="highlight"><pre><span></span><span class="nb">Object</span> <span class="n">ancestors</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span>
+	<span class="n">prototype</span> <span class="o">:=</span> <span class="n">self</span> <span class="n">proto</span>
+	<span class="k">if</span><span class="o">(</span><span class="n">prototype</span> <span class="o">!=</span> <span class="nb">Object</span><span class="o">,</span>
+		<span class="n">writeln</span><span class="o">(</span><span class="s">&quot;Slots of &quot;</span><span class="o">,</span> <span class="n">prototype</span> <span class="n">type</span><span class="o">,</span> <span class="s">&quot;\n---&quot;</span><span class="o">)</span>
+		<span class="n">prototype</span> <span class="n">slotNames</span> <span class="n">foreach</span><span class="o">(</span><span class="n">slotname</span><span class="o">,</span> <span class="n">writeln</span><span class="o">(</span><span class="n">slotname</span><span class="o">))</span>
+		<span class="n">writeln</span>
+		<span class="n">prototype</span> <span class="n">ancestors</span><span class="o">))</span>
+
+<span class="n">Animal</span> <span class="o">:=</span> <span class="nb">Object</span> <span class="k">clone</span>
+<span class="n">Animal</span> <span class="n">speak</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span><span class="s">&quot;noise&quot;</span> <span class="n">println</span><span class="o">)</span>
+
+<span class="n">Duck</span> <span class="o">:=</span> <span class="n">Animal</span> <span class="k">clone</span>
+<span class="n">Duck</span> <span class="n">speak</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span><span class="s">&quot;quack&quot;</span> <span class="n">println</span><span class="o">)</span>
+<span class="n">Duck</span> <span class="n">walk</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span><span class="s">&quot;waddle&quot;</span> <span class="n">println</span><span class="o">)</span>
+
+<span class="n">d</span> <span class="o">:=</span> <span class="n">Duck</span> <span class="k">clone</span>
+<span class="n">d</span> <span class="n">ancestors</span>
+</pre></div>

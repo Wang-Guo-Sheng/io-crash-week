@@ -1,0 +1,70 @@
+<div class="highlight"><pre><span></span><span class="n">Matrix</span> <span class="o">:=</span> <span class="nb">List</span> <span class="k">clone</span> <span class="k">do</span><span class="o">(</span>
+    <span class="n">m</span> <span class="o">::=</span> <span class="mf">0</span> <span class="c1"># rows</span>
+    <span class="n">n</span> <span class="o">::=</span> <span class="mf">0</span> <span class="c1"># columns</span>
+
+    <span class="c1">// init ram with zeros</span>
+    <span class="n">dim</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> 
+        <span class="n">tmp</span> <span class="o">:=</span> <span class="nb">list</span><span class="o">();</span> 
+        <span class="k">for</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="mf">1</span><span class="o">,</span> <span class="n">x</span><span class="o">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">y</span><span class="o">;</span> <span class="n">n</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span> <span class="n">tmp</span> <span class="n">push</span><span class="o">(</span><span class="mf">0</span><span class="o">));</span> 
+        <span class="k">for</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="mf">1</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">call</span> <span class="n">target</span> <span class="n">push</span><span class="o">(</span><span class="n">tmp</span><span class="o">));</span> <span class="n">call</span> <span class="n">target</span>
+    <span class="o">)</span>
+
+    <span class="c1">// set an element</span>
+    <span class="n">set</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">val</span><span class="o">,</span> 
+        <span class="n">tmp</span> <span class="o">:=</span> <span class="n">call</span> <span class="n">target</span> <span class="n">at</span><span class="o">(</span><span class="n">y</span><span class="o">)</span> <span class="k">clone</span>
+        <span class="n">tmp</span> <span class="n">atPut</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">val</span><span class="o">)</span>
+        <span class="n">call</span> <span class="n">target</span> <span class="n">atPut</span><span class="o">(</span><span class="n">y</span><span class="o">,</span> <span class="n">tmp</span><span class="o">)</span>
+    <span class="o">)</span>
+
+    <span class="c1">// get an element</span>
+    <span class="n">get</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">call</span> <span class="n">target</span> <span class="n">at</span><span class="o">(</span><span class="n">y</span><span class="o">)</span> <span class="n">at</span><span class="o">(</span><span class="n">x</span><span class="o">))</span>
+
+    <span class="c1">// append a row</span>
+    <span class="n">matrix_push</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span><span class="n">new</span><span class="o">,</span> 
+        <span class="k">if</span><span class="o">(</span><span class="n">call</span> <span class="n">target</span> <span class="n">size</span> <span class="o">==</span> <span class="mf">0</span><span class="o">,</span>
+            <span class="n">call</span> <span class="n">target</span> <span class="n">n</span> <span class="o">:=</span> <span class="o">(</span><span class="n">new</span> <span class="n">size</span><span class="o">),</span>
+            <span class="k">if</span><span class="o">((</span><span class="n">new</span> <span class="n">size</span><span class="o">)</span> <span class="o">!=</span> <span class="o">(</span><span class="n">call</span> <span class="n">target</span> <span class="n">at</span><span class="o">(</span><span class="mf">0</span><span class="o">)</span> <span class="n">size</span><span class="o">),</span>
+                <span class="n">raise</span><span class="o">(</span><span class="s">&quot;size does not match.&quot;</span><span class="o">)</span>
+            <span class="o">)</span>
+        <span class="o">)</span>
+        <span class="n">call</span> <span class="n">target</span> <span class="n">push</span><span class="o">(</span><span class="n">new</span><span class="o">)</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">m</span> <span class="o">+</span> <span class="mf">1</span>
+    <span class="o">)</span>
+<span class="o">)</span>
+
+<span class="n">A</span> <span class="o">:=</span> <span class="n">Matrix</span> <span class="k">clone</span>
+<span class="n">A</span> <span class="n">dim</span><span class="o">(</span><span class="mf">3</span><span class="o">,</span> <span class="mf">5</span><span class="o">)</span>
+<span class="n">A</span> <span class="n">println</span>
+<span class="n">A</span> <span class="n">set</span><span class="o">(</span><span class="mf">2</span><span class="o">,</span> <span class="mf">3</span><span class="o">,</span> <span class="mf">6</span><span class="o">)</span>
+<span class="n">A</span> <span class="n">set</span><span class="o">(</span><span class="mf">1</span><span class="o">,</span> <span class="mf">2</span><span class="o">,</span> <span class="mf">5</span><span class="o">)</span>
+<span class="n">A</span> <span class="n">set</span><span class="o">(</span><span class="mf">2</span><span class="o">,</span> <span class="mf">4</span><span class="o">,</span> <span class="mf">3</span><span class="o">)</span>
+<span class="n">A</span> <span class="n">println</span>
+<span class="n">A</span> <span class="n">get</span><span class="o">(</span><span class="mf">2</span><span class="o">,</span> <span class="mf">3</span><span class="o">)</span> <span class="n">println</span>
+
+<span class="s">&quot;----Transpose----&quot;</span> <span class="n">println</span>
+
+<span class="n">Matrix</span> <span class="n">transpose</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span>
+    <span class="n">x</span> <span class="o">:=</span> <span class="n">call</span> <span class="n">target</span> <span class="n">m</span>
+    <span class="n">y</span> <span class="o">:=</span> <span class="n">call</span> <span class="n">target</span> <span class="n">n</span>
+    <span class="n">M</span> <span class="o">:=</span> <span class="n">Matrix</span> <span class="k">clone</span> <span class="n">dim</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span>
+    <span class="c1"># call target println</span>
+    <span class="c1"># M println</span>
+    <span class="k">for</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="mf">0</span><span class="o">,</span> <span class="n">x</span> <span class="o">-</span> <span class="mf">1</span><span class="o">,</span> <span class="k">for</span><span class="o">(</span><span class="n">j</span><span class="o">,</span> <span class="mf">0</span><span class="o">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mf">1</span><span class="o">,</span> 
+        <span class="n">M</span> <span class="n">set</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">j</span><span class="o">,</span> <span class="n">call</span> <span class="n">target</span> <span class="n">get</span><span class="o">(</span><span class="n">j</span><span class="o">,</span> <span class="n">i</span><span class="o">))))</span>
+<span class="o">)</span>
+
+<span class="n">A</span> <span class="n">transpose</span> <span class="n">println</span>
+
+<span class="s">&quot;----Read File----&quot;</span> <span class="n">println</span>
+
+<span class="n">B</span> <span class="o">:=</span> <span class="n">Matrix</span> <span class="k">clone</span>
+<span class="n">file</span> <span class="o">:=</span> <span class="nb">File</span> <span class="k">clone</span> <span class="n">openForReading</span><span class="o">(</span><span class="s">&quot;mat.csv&quot;</span><span class="o">)</span>
+<span class="n">while</span><span class="o">(</span><span class="n">file</span> <span class="n">isAtEnd</span> <span class="o">==</span> <span class="no">false</span><span class="o">,</span>
+    <span class="n">line</span> <span class="o">:=</span> <span class="n">file</span> <span class="n">readLine</span> <span class="n">split</span><span class="o">(</span><span class="s">&quot;, &quot;</span><span class="o">)</span>
+    <span class="n">B</span> <span class="n">matrix_push</span><span class="o">(</span><span class="n">line</span><span class="o">)</span>
+<span class="o">)</span>
+<span class="n">file</span> <span class="n">close</span>
+
+<span class="n">B</span> <span class="n">println</span>
+<span class="n">B</span> <span class="n">transpose</span> <span class="n">println</span>
+</pre></div>

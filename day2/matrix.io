@@ -1,13 +1,25 @@
 Matrix := List clone do(
-    m ::= 0
-    n ::= 0
-    dim := method(x, y, tmp := list(); for(i, 1, x, m = y; n = x; tmp push(0)); for(i, 1, y, call target push(tmp)); call target)
+    m ::= 0 # rows
+    n ::= 0 # columns
+
+    // init ram with zeros
+    dim := method(x, y, 
+        tmp := list(); 
+        for(i, 1, x, m = y; n = x; tmp push(0)); 
+        for(i, 1, y, call target push(tmp)); call target
+    )
+
+    // set an element
     set := method(x, y, val, 
         tmp := call target at(y) clone
         tmp atPut(x, val)
         call target atPut(y, tmp)
     )
+
+    // get an element
     get := method(x, y, call target at(y) at(x))
+
+    // append a row
     matrix_push := method(new, 
         if(call target size == 0,
             call target n := (new size),
@@ -32,8 +44,8 @@ A get(2, 3) println
 "----Transpose----" println
 
 Matrix transpose := method(
-    x := call target n
-    y := call target m
+    x := call target m
+    y := call target n
     M := Matrix clone dim(x, y)
     # call target println
     # M println

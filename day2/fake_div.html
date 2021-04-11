@@ -1,0 +1,13 @@
+<div class="highlight"><pre><span></span><span class="c1">// Redefine division operator to return 0 for 0 denomination</span>
+
+<span class="o">(</span><span class="mf">1</span> <span class="o">/</span> <span class="mf">2</span><span class="o">)</span> <span class="n">println</span>
+
+<span class="n">OperatorTable</span> <span class="n">addOperator</span><span class="o">(</span><span class="s">&quot;div&quot;</span><span class="o">,</span> <span class="mf">2</span><span class="o">)</span>
+<span class="c1">// This would not work unless input line by line in terminal</span>
+<span class="c1">// https://iolanguage.org/guide/guide.html#Syntax-Operators</span>
+<span class="c1">// Note that this change will not effect the source file in which the OperatorTable is modified as the full file is parsed before it is evaluated.</span>
+
+<span class="n">Number</span> <span class="n">div</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span><span class="n">den</span><span class="o">,</span> <span class="n">call</span> <span class="n">target</span> <span class="o">/</span> <span class="n">den</span><span class="o">)</span>
+<span class="n">message</span><span class="o">(</span><span class="mf">1</span> <span class="n">div</span> <span class="mf">2</span><span class="o">)</span> <span class="n">println</span>
+<span class="mf">1</span> <span class="n">div</span> <span class="mf">2</span> <span class="n">println</span>
+</pre></div>
