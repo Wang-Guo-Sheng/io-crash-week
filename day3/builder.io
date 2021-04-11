@@ -18,21 +18,25 @@ Map atPutNumber := method(
         call evalArgAt(1))
 )
 
+
 Builder forward := method(
-    writeln(indent, "<", call message name, ">")
+    // Must use an external sequence to store result, otherwise cannot know when to move `>` after the arguments.
+    XML_seq appendSeq(indent, "<", call message name, ">\n")
     Builder indent = indent appendSeq(unit_indent)
+
+    is_first := true
     call message arguments foreach(
         arg,
-        content := self doMessage(arg);
+        content := self doMessage(arg)
 
         //convert XML artributes
-        if(
-            content type == "Map",
+        if(is_first and content type == "Map",
             seq := Sequence clone
             content keys foreach(key,
-                seq appendSeq(key, "=\"", content at(key), "\"")
+                seq appendSeq(" ", key, "=\"", content at(key), "\"")
             )
-            writeln(seq)
+            XML_seq removeLast removeLast
+            XML_seq appendSeq(seq, ">\n")
         )
 
         // convert XML elements
@@ -40,18 +44,21 @@ Builder forward := method(
             content type == "Sequence",
             seq := Sequence clone appendSeq(indent)
             seq appendSeq(content)
-            writeln(seq)
+            XML_seq appendSeq(seq, "\n")
         )
-
+        is_first = false
     )
+
     Builder indent := indent exSlice(0, indent size - 4)
-    writeln(indent, "</", call message name, ">")
+    XML_seq appendSeq(indent, "</", call message name, ">\n")
 )
 
 s := File with("ul.LispML") openForReading contents
 s println
-Builder doString(s)
+XML_seq := Sequence clone
+Builder doString(s) println
 writeln
 s := File with("book.LispML") openForReading contents
 s println
-Builder doString(s)
+XML_seq := Sequence clone
+Builder doString(s) println
