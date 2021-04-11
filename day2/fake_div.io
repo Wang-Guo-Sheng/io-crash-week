@@ -7,6 +7,7 @@ OperatorTable addOperator("div", 2)
 // https://iolanguage.org/guide/guide.html#Syntax-Operators
 // Note that this change will not effect the source file in which the OperatorTable is modified as the full file is parsed before it is evaluated.
 
-Number div := method(den, call target / den)
+Number div := method(den, if(den == 0, 0, self / den))
+// self <=> call target
 message(1 div 2) println
 1 div 2 println

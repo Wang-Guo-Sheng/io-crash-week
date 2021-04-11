@@ -7,7 +7,7 @@
 <span class="c1">// https://iolanguage.org/guide/guide.html#Syntax-Operators</span>
 <span class="c1">// Note that this change will not effect the source file in which the OperatorTable is modified as the full file is parsed before it is evaluated.</span>
 
-<span class="n">Number</span> <span class="n">div</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span><span class="n">den</span><span class="o">,</span> <span class="n">call</span> <span class="n">target</span> <span class="o">/</span> <span class="n">den</span><span class="o">)</span>
+<span class="n">Number</span> <span class="n">div</span> <span class="o">:=</span> <span class="k">method</span><span class="o">(</span><span class="n">den</span><span class="o">,</span> <span class="k">if</span><span class="o">(</span><span class="n">den</span> <span class="o">==</span> <span class="mf">0</span><span class="o">,</span> <span class="mf">0</span><span class="o">,</span> <span class="n">call</span> <span class="n">target</span> <span class="o">/</span> <span class="n">den</span><span class="o">))</span>
 <span class="n">message</span><span class="o">(</span><span class="mf">1</span> <span class="n">div</span> <span class="mf">2</span><span class="o">)</span> <span class="n">println</span>
 <span class="mf">1</span> <span class="n">div</span> <span class="mf">2</span> <span class="n">println</span>
 </pre></div>
